@@ -28,7 +28,6 @@ argparser.add_argument(
 )
 
 
-xml_path = '../1440-05-16_1_0_13_14_0_7_7.xml'
 replace_tags = (
     (re.compile('<hi.*?>(.*?)</hi>', flags=re.MULTILINE),''),
     (re.compile('<ref.*?>(.*?)</ref>', flags=re.MULTILINE), ''),
