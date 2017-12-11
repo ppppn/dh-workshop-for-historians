@@ -29,10 +29,12 @@ argparser.add_argument(
 
 
 xml_path = '../1440-05-16_1_0_13_14_0_7_7.xml'
-redundant_tag_regexp_pairs = (
-    {'start': '<hi.*?>', 'end': '</hi>'},
-    {'start': '<ref.*?>', 'end': '</ref>'},
-)
+replace_tags = (
+    (re.compile('<hi.*?>(.*?)</hi>', flags=re.MULTILINE),''),
+    (re.compile('<ref.*?>(.*?)</ref>', flags=re.MULTILINE), ''),
+    (re.compile('<note.*?>(.*)</note>', flags=re.MULTILINE),
+                ' (Note: \\1) '),
+                )
 
 
 class CEIdoc:
@@ -63,18 +65,17 @@ class CEIdoc:
 
 def preprocess_xml_text(xml_text):
     """preprocess_xml_text
-- remove redundant tags (e.g. <ref>, <hi>)
-- replace tags (e.g. '<note>comment</note>' with '(Note: comment)'
+- replace tags
+    - examples:
+        - '<note>comment</note>' with '(Note: comment)')
+        - remove <ref>, <hi>
     :param str xml_text:
     :rtype: str
     :return: preprocessed xml text
     """
-    for pair in redundant_tag_regexp_pairs:
-        xml_text = re.sub(pair['start']+'(.*?)'+pair['end'], '\\1', xml_text,
-                          flags=re.MULTILINE)
+    for comp, repl in replace_tags:
+        xml_text = comp.sub(repl, xml_text)
 
-    xml_text = re.sub('<note.*?>(.*)</note>', ' (Note: \\1) ', xml_text,
-                      flags=re.MULTILINE)
     return xml_text
 
 
@@ -123,7 +124,7 @@ def parse_xml_to_CEIdoc(root):
     abstract = ''
     for paragraph in abstract_paragraphs:
         abstract += paragraph + '\n'
-    abstract = abstract[:-2]
+    abstract = abstract[:-1]
     cei_doc = CEIdoc(
         title=title,
         issuer=issuer,
