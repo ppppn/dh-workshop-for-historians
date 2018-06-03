@@ -6,8 +6,12 @@ import sqlite3
 RETURN_FORMAT = '''{id}|{writer}|{writer_title}|{first_phrase}|{second_phrase}'''
 
 # Create connection to SQLite3 database files
+# https://docs.python.jp/3/library/sqlite3.html
 conn = sqlite3.connect('database/hyakunin.db')
 
+
+# Request Routing
+# https://bottlepy.org/docs/dev/tutorial.html#request-routing
 
 # Hello page
 @route('/')
@@ -16,6 +20,7 @@ def hone():
 
 
 # Song API
+# https://bottlepy.org/docs/dev/tutorial.html#generating-content
 @route('/song/<id>')
 def find_song(id):
     # Return status code 404 if id is not number.
@@ -30,6 +35,7 @@ def find_song(id):
     c = conn.cursor()
 
     # Execute SQL to fetch song data.
+    # https://www.sqlite.org/lang_select.html
     c.execute("SELECT id, writer, writer_title, first_phrase, second_phrase "
               "FROM songs WHERE id "
               "= %d" % id)

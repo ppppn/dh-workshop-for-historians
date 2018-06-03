@@ -57,6 +57,7 @@ def fetch_result(id):
     }
 
 
+# https://bottlepy.org/docs/dev/tutorial.html#generating-content
 # Show search box
 @route('/')
 def search_box():
