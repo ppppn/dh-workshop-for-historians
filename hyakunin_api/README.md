@@ -24,18 +24,15 @@ README.md               # 本ファイル
 ### Craete file
 次のコマンドで、データベース作成用テキストファイルを読み込み、SQLiteのデータベースファイルを作成する
 ```
-sqlite3 database/hyakunin.db -init database/create_db.txt
+sqlite3 database/hyakunin.db < database/create_db.txt
 ```
-```
--- Loading resources from create_db.txt
-SQLite version 3.19.3 2017-06-08 14:26:16
-Enter ".help" for usage hints.
-sqlite>
-```
-と表示されていれば、テーブルとデータが作成されているはず。
 
 ### Test the file
 データをテストする。
+```
+sqlite3 database/hyakunin.db
+```
+
 ```
 sqlite> select * from songs;
 ```

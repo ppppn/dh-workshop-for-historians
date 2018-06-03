@@ -103,3 +103,4 @@ INSERT INTO SONGS VALUES(97, '藤原定家',     '権中納言定家',     '来�
 INSERT INTO SONGS VALUES(98, '藤原家隆',     '従二位家隆',       '風そよぐ　楢の小川の　夕暮は', '御禊ぞ夏の　しるしなりける');
 INSERT INTO SONGS VALUES(99, '後鳥羽天皇',   '後鳥羽院',         '人も惜し　人も恨めし　あぢきなく', '世を思ふゆゑに　物思ふ身は');
 INSERT INTO SONGS VALUES(100, '順徳天皇',    '順徳院',           '百敷や　古き軒端の　しのぶにも', 'なほ余りある　昔なりけり');
+.q
