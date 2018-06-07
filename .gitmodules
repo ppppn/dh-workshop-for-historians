@@ -1,0 +1,3 @@
+[submodule "hyakunin_api/reveal.js"]
+	path = hyakunin_api/reveal.js
+	url = https://github.com/hakimel/reveal.js.git
