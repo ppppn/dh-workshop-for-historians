@@ -37,8 +37,7 @@ def find_song(id):
     # Execute SQL to fetch song data.
     # https://www.sqlite.org/lang_select.html
     c.execute("SELECT id, writer, writer_title, first_phrase, second_phrase "
-              "FROM songs WHERE id "
-              "= %d" % id)
+              "FROM songs_view WHERE id = %d" % id)
     result = c.fetchall()[0]
     return RETURN_FORMAT.format(
         id=result[0],
