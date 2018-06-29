@@ -1,7 +1,7 @@
 import json
 import requests
 from argparse import ArgumentParser
-from joblib import Parallel, delayed
+from multiprocessing import Pool
 import logging
 import re
 
@@ -13,6 +13,7 @@ try:
     run_on_colaboratory = True
 except ImportError:
     run_on_colaboratory = False
+    from joblib import Parallel, delayed
 
 
 # Consts
@@ -89,10 +90,11 @@ if run_on_colaboratory:
     colab_year_to = 0  # @param {type:"integer"}
     colab_options.append(f'--year-to={colab_year_to}')
 
-    colab_max_num = 0  # @param {type:"integer"}
+    colab_max_num = 1000  # @param {type:"integer"}
     colab_options.append(f'--max-num={colab_max_num}')
 
-    colab_options.append('--concurrency-level=1')
+    colab_concurrency_level = 100 # @param {type:"integer"}
+    colab_options.append(f'--concurrency-level={colab_concurrency_level}')
     colab_show_progress = False  # @param {type:"boolean"}
     if colab_show_progress:
         colab_options.append('--show-progress')
@@ -197,15 +199,18 @@ def fetch_and_parse_book_urls_to_list_of_book(book_urls,
     """
     Fetch JSON files of books and parse it to list of Book objects in parallel.
     :param book_urls: list of urls to JSON of book
+    :param int n_jobs: number of total process to fetch and parse json
     :param verbose_level: verbose argument passed to Parallel
     :rtype: list[Book]
     :return: a sorted list of Book objects
     """
-    books = Parallel(n_jobs=n_jobs, verbose=verbose_level)(
-        [delayed(fetch_and_parse_book_json_to_book)(url) for url in book_urls]
-    )
-    books.sort(key=lambda book: book.title_kana)
-
+    if run_on_colaboratory:
+        with Pool(processes=n_jobs) as pool:
+            books = pool.map(fetch_and_parse_book_json_to_book, book_urls)
+    else:
+        books = Parallel(n_jobs=n_jobs, verbose=verbose_level)(
+            [delayed(fetch_and_parse_book_json_to_book)(url) for url in book_urls]
+        )
     return books
 
 
