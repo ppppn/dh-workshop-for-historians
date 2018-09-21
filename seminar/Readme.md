@@ -1,4 +1,11 @@
-# ToDH 技術勉強会案
+# ToDH 技術勉強会
+
+## Original Resources
+[SSH の設定](howtossh.md)
+[Git の話](howtogit.md)
+
+## Schedule
+TBD
 
 ## git 講座
 
