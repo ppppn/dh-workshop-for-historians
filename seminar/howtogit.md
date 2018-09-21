@@ -54,6 +54,8 @@ https://github.com/ppppn/dh-workshop-for-historians/blob/master/ri_oda/parser.py
 # Git を本格的に使う
 GitHub 上での作業を毎回やるのはわりとつらめ
 
+[SSH の設定](howtossh.md) が完了していることを前提としているため、対応できていない場合は戻る。
+
 ## Git って何なの
 [バージョン管理システム](https://ja.wikipedia.org/wiki/%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0) の1つ。
 だいたい書いてあるので、まずは wiki を読む。
