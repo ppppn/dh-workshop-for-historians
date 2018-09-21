@@ -99,6 +99,9 @@ https://backlog.com/ja/git-tutorial/intro/intro3_3.html
 git clone https://github.com/ppppn/dh-workshop-for-historians.git
 ```
 
+https://github.com/ppppn/dh-workshop-for-historians のレポジトリの内容がクローンされ、 dh-workshop-for-historians で見ることができる。
+(これらのファイルは git の管理下に入っている)
+
 ## 作業ディレクトリの考え方
 - ワークツリー: ファイルとして見えている内容。git で管理されているものとされていないものがある状態。
 - インデックス: コミットするとマークされているファイルとその状態。git で管理されている。
