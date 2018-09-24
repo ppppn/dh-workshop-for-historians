@@ -197,3 +197,14 @@ $ exit  # SSH 接続から抜ける
 ```
 ssh $username@$server -p $port -i ~/.ssh/id_rsa
 ```
+
+## (参考)接続設定の保存
+クライアント側の ~/.ssh/config の例
+
+```
+Host server
+  HostName ${ip_address}
+  IdentityFile ~/.ssh/id_rsa
+  User ${username}
+  Port ${port}
+```
