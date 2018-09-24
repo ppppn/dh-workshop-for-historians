@@ -158,10 +158,10 @@ The key's randomart image is:
 ```
 $ ls -la ~/.ssh
 total 16
-drwxr-xr-x 1 Administrator 197121    0 9月  20 10:38 ./
-drwxr-xr-x 1 Administrator 197121    0 9月  20 10:38 ../
--rw-r--r-- 1 Administrator 197121 3243 9月  20 10:38 id_rsa     # 秘密鍵
--rw-r--r-- 1 Administrator 197121  755 9月  20 10:38 id_rsa.pub # 公開鍵
+drwxr-xr-x 1 xxxx 197121    0 9月  20 10:38 ./
+drwxr-xr-x 1 xxxx 197121    0 9月  20 10:38 ../
+-rw-r--r-- 1 xxxx 197121 3243 9月  20 10:38 id_rsa     # 秘密鍵
+-rw-r--r-- 1 xxxx 197121  755 9月  20 10:38 id_rsa.pub # 公開鍵
 ```
 `~` はユーザーのホームディレクトリです。Windows であれば、`C:\Users\$username\`、Mac だと `/Users/$username` あたりです。
 
