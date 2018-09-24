@@ -169,7 +169,7 @@ drwxr-xr-x 1 Administrator 197121    0 9月  20 10:38 ../
 次の手順でサーバーへ公開鍵をコピーします
 
 ```
-scp ~/.ssh/id_rsa.pub $username@$server:/home/$username/
+scp ~/.ssh/id_rsa.pub $username@$server:/home/$username/ -P $port
 ```
 
 `$` のやつはパスワードで SSH 接続したものと大体同じです。まだパスワードを要求されます。
