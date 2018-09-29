@@ -130,6 +130,7 @@ ssh-keygen -b 4096
 (この手の手順について書かれたものでは、一般に `#` 以降はコメントで、実際には入力しないことを意味します)
 
 ```
+# on your computer
 $ ssh-keygen -b 4096
 Generating public/private rsa key pair.
 Enter file in which to save the key (/xxxx/.ssh/id_rsa):    # デフォルトのまま Enter
@@ -156,6 +157,7 @@ The key's randomart image is:
 
 ファイルが正しく作成されていることも確認しておきましょう。次のような感じであれば OK です。
 ```
+# on your computer
 $ ls -la ~/.ssh
 total 16
 drwxr-xr-x 1 xxxx 197121    0 9月  20 10:38 ./
@@ -169,6 +171,7 @@ drwxr-xr-x 1 xxxx 197121    0 9月  20 10:38 ../
 次の手順でサーバーへ公開鍵をコピーします
 
 ```
+# on your computer
 scp -P $port ~/.ssh/id_rsa.pub $username@$server:/home/$username/
 ```
 
@@ -179,6 +182,7 @@ scp -P $port ~/.ssh/id_rsa.pub $username@$server:/home/$username/
 サーバーで次の通りコマンドを実行してください。
 
 ```
+# on the server
 $ uname -n      # 目的のサーバーのホスト名が表示されることを確認する
 $ ip a          # 目的のサーバーのIPアドレスが表示されることを確認する
 $ cd ~          # ホームディレクトリに移動する
@@ -195,6 +199,7 @@ $ exit  # SSH 接続から抜ける
 ### 公開鍵でサーバーへ接続
 以下のコマンドで公開鍵を使った接続ができるようになります。
 ```
+# on your computer
 ssh $username@$server -p $port -i ~/.ssh/id_rsa
 ```
 
