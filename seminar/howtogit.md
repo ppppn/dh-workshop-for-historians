@@ -73,8 +73,25 @@ https://github.com/new
 - Add .gitignore: None
 - Add a license: None
 
-表示される create a new repository on the command line に従って作業してみる
-→GitHubで直接、作業した内容と同じことができる。
+
+## git clone する
+
+`SSH` が選択されていることを確認し、`Quick setup` の下にあるテキストボックスの内容をコピーする
+
+サンプル
+```
+git@github.com:${username}/my-2nd-repository.git
+```
+
+自分のPCで以下を実行する
+
+```
+$ cd ~
+$ git clone git@github.com:${username}/my-2nd-repository.git
+$ cd my-2nd-repository
+$ pwd
+```
+最後のコマンドの結果、 `my-2nd-repository` で終わるパスが表示されていればOK。
 
 # 考え方とか
 
@@ -112,7 +129,7 @@ https://github.com/ppppn/dh-workshop-for-historians のレポジトリの内容�
 ## コマンド status / log / diff
 - status: ワークツリーの状態を確認する
 - log: レポジトリへのコミットの記録を確認する
-- diff: コミット間の差分を取得する
+- diff: コミット間などの差分を取得する
 
 # 作業の流れ
 
@@ -121,6 +138,150 @@ https://github.com/ppppn/dh-workshop-for-historians のレポジトリの内容�
 1. コミットしたいファイルについて git add して、コミットしたいファイルを git に伝える
 1. git commit して、作成・変更したファイルをコミットする。そのときに、変更内容について、分かりやすくコメントを書く
 1. git push してリモートレポジトリにコミット内容を反映させる
+
+## 作業例
+
+```
+$ echo "My first line" > my-first-file.txt # ファイルに内容を書き込む
+$ cat my-first-file.txt # 内容を表示する
+My first line
+$ git status # ローカルレポジトリの状態を確認する
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        my-first-file.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+###
+# Untracked files(git により追跡対象となっていないファイル)に my-first-file .txt が入っている
+# これはこのファイルが git の管理下に入っていないことを示す
+###
+
+$ git add my-first-file.txt # my-first-file.txt をコミット対象とし、git の管理下に入れる
+$ echo $? # コマンドの結果を確認
+0 # 0 と表示されたら成功
+$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+        new file:   my-first-file.txt
+
+###
+# git の管理下に新しく入ってきたファイルとして認識された
+###
+
+$ git commit -m 'add my first file' # ローカルレポジトリにコミット
+[master (root-commit) 7e8526b] add my first file
+ 1 file changed, 1 insertion(+)
+ create mode 100644 my-first-file.txt
+
+$ git push # github に push
+Counting objects: 3, done.
+Writing objects: 100% (3/3), 243 bytes | 243.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+remote: 
+remote: Create a pull request for 'master' on GitHub by visiting:
+remote:      https://github.com/ppppn/my-2nd-repository/pull/new/master
+remote: 
+To github.com:ppppn/my-2nd-repository.git
+ * [new branch]      master -> master
+
+# ここで、 github 上でレポジトリの状態を確認する
+
+$ echo 'new line' >> my-first-file.txt # 新しい行を追加する
+$ cat my-first-file.txt # 内容を確認
+My first line
+new line
+$ git status # ワークツリーの状態を確認
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   my-first-file.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+###
+# my-first-file.txt はすでに git 管理下に入っている。
+# このファイルは変更が加えられたと git が認識している
+# だが、この段階ではレポジトリにコミットすべきとは認識されていない
+###
+$ git diff # 差分を表示
+diff --git a/my-first-file.txt b/my-first-file.txt
+index a63f21e..fab897e 100644
+--- a/my-first-file.txt
++++ b/my-first-file.txt
+@@ -1 +1,2 @@
+ My first line
++new line
+$ git add my-first-file.txt # コミット対象としてファイルを追加
+$ echo $?
+0
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   my-first-file.txt
+
+###
+# ファイルが変更され、かつ、コミット対象と認識している
+###
+
+$ git commit -m 'add new line'
+[...]
+$ git push
+[...]
+# github で確認する
+# github 上でファイルを編集する
+$ git pull # github上の変更をローカルレポジトリに取り込む
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From github.com:ppppn/my-2nd-repository
+   05675a3..c492584  master     -> origin/master
+Updating 05675a3..c492584
+Fast-forward
+ my-first-file.txt | 1 +
+ 1 file changed, 1 insertion(+)
+$ cat my-first-file.txt # 内容確認
+My first line
+new line
+3rd line
+$ git log # これまでのコミットログを確認
+$ git log
+commit c4925840124048373f5f92111dd3341fba3a1656 (HEAD -> master, origin/master)
+Author: Akira Tanaka <ppppn@users.noreply.github.com>
+Date:   Mon Oct 22 22:05:36 2018 +0900
+
+    add third line
+
+commit 05675a3df00c4d2cbe03bb64ac2b37e7c5f7b103
+Author: Akira Tanaka <akira.tanaka.1897@gmail.com>
+Date:   Mon Oct 22 22:05:05 2018 +0900
+
+    add new line
+
+commit 7e8526b6a45c06227ddff391bde2b08edfa25561
+Author: Akira Tanaka <akira.tanaka.1897@gmail.com>
+Date:   Mon Oct 22 21:57:27 2018 +0900
+
+    add my first file
+```
 
 # (参考)Network を見る
 Git ではブランチを切ることができる。
