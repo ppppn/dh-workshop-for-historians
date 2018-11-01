@@ -62,6 +62,7 @@ git を使うと、
 ### Resources
 
 - [Learn RDBMS in 6 minutes!](https://www.youtube.com/watch?v=t48TGntrX4s)
+- [MySQL 5.6 リファレンスマニュアル](https://dev.mysql.com/doc/refman/5.6/ja/)
 
 ## 輪読『Pythonチュートリアル』
 
