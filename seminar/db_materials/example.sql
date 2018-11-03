@@ -163,3 +163,49 @@ FROM
     sales, 
     products, 
     orderers;
+
+# 2. SELECT with WHERE instead of JOIN
+
+SELECT 
+    orders.id AS orders_id, 
+    orders.date AS orders_date,
+    sales.id AS sales_id, 
+    products.id AS products_id, 
+    products.name AS products_name, 
+    products.price AS products_price,
+    sales.amount AS sales_price, 
+    products.price * sales.amount AS proceed, 
+    orderers.id AS orderers_id, 
+    orderers.name AS orderers_name, 
+    orderers.address AS orderers_address, 
+    orderers.phone_no AS orderers_phone_no
+FROM 
+    orders,
+    sales, 
+    products, 
+    orderers
+WHERE
+    orders.id = sales.order_id AND
+    sales.product_id = products.id AND
+    orderers.id = orders.orderer_id;
+
+# 3. VIEW
+CREATE VIEW full_list AS 
+SELECT 
+    orders.id AS orders_id, 
+    orders.date AS orders_date,
+    sales.id AS sales_id, 
+    products.id AS products_id, 
+    products.name AS products_name, 
+    products.price AS products_price,
+    sales.amount AS sales_price, 
+    products.price * sales.amount AS proceed, 
+    orderers.id AS orderers_id, 
+    orderers.name AS orderers_name, 
+    orderers.address AS orderers_address, 
+    orderers.phone_no AS orderers_phone_no
+FROM 
+    orders 
+    JOIN sales ON orders.id = sales.order_id 
+    JOIN products ON sales.product_id = products.id 
+    JOIN orderers ON orderers.id = orders.orderer_id;
